@@ -6,14 +6,19 @@ import 'package:xgriddesigntask/view_models/home_view_model.dart';
 
 import '../constants/my_colors.dart';
 import '../constants/my_text_styles.dart';
+import '../services/state_service.dart';
+import '../services/theme_engine.dart';
 
 class ProfileDetailsBox extends StatelessWidget {
   final IconData? iconData;
-  final String name,email;
-  const ProfileDetailsBox({Key? key,this.iconData,required this.name,required this.email}) : super(key: key);
+  final String name, email;
+  const ProfileDetailsBox(
+      {Key? key, this.iconData, required this.name, required this.email})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final themeEngine = Provider.of<ThemeEngine>(context);
     return Column(
       children: [
         Padding(
@@ -25,7 +30,7 @@ class ProfileDetailsBox extends StatelessWidget {
               radius: 60.r,
               backgroundColor: MyColors.brown,
               child: Icon(
-                iconData??FontAwesomeIcons.user,
+                iconData ?? FontAwesomeIcons.user,
                 size: 50.h,
                 color: MyColors.orange,
               ),
@@ -36,14 +41,14 @@ class ProfileDetailsBox extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Text(
             name,
-            style: MyTextStyles.bold20,
+            style: MyTextStyles.bold20.copyWith(color: themeEngine.textColor),
           ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Text(
-            "john.doe@example.com",
-            style: MyTextStyles.regular20,
+            email,
+            style: MyTextStyles.regular20.copyWith(color: themeEngine.textColor),
           ),
         ),
       ],
@@ -51,44 +56,65 @@ class ProfileDetailsBox extends StatelessWidget {
   }
 }
 
-
 class HomeTiles extends StatelessWidget {
   const HomeTiles({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final homeState = Provider.of<HomeViewModel>(context);
 
-    List<Widget> tiles = List.generate(homeState.items.length, (index) => homeTileChildren(leadingIcon: homeState.items[index].leadingIcon, title: homeState.items[index].title));
+    List<Widget> tiles = List.generate(
+        homeState.items.length,
+        (index) => homeTileChildren(
+            leadingIcon: homeState.items[index].leadingIcon,
+            title: homeState.items[index].title));
 
     return Column(
       children: tiles,
     );
   }
 
-
-
-  Widget homeTileChildren({required IconData leadingIcon,required String title, IconData? actionIcon}){
-   return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      child: Container(
-        decoration: BoxDecoration(
-          color: MyColors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(25.w),),
-        ),
-        child: ListTile(
-          title: Row(
-            children: [
-              Icon(leadingIcon,color: MyColors.black,size: 25.h,),
-              SizedBox(width: 10.w,),
-              Text(title,style: MyTextStyles.semiBold15,)
-            ],
+  Widget homeTileChildren(
+      {required IconData leadingIcon,
+      required String title,
+      IconData? actionIcon}) {
+    return Builder(
+      builder: (context) {
+        final themeEngine = Provider.of<ThemeEngine>(context);
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: Container(
+            decoration: BoxDecoration(
+              color: themeEngine.homeTileColor,
+              borderRadius: BorderRadius.all(
+                Radius.circular(25.w),
+              ),
+            ),
+            child: ListTile(
+              title: Row(
+                children: [
+                  Icon(
+                    leadingIcon,
+                    color: themeEngine.iconColor,
+                    size: 25.h,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    title,
+                    style: MyTextStyles.semiBold15.copyWith(color:  themeEngine.textColor),
+                  )
+                ],
+              ),
+              trailing: Icon(actionIcon ?? Icons.arrow_forward_ios_outlined,
+                  color:
+                      Provider.of<ThemeEngine>(context, listen: true)
+                          .iconColor),
+            ),
           ),
-          trailing: Icon(actionIcon??Icons.arrow_forward_ios_outlined,color: MyColors.black,),
-        ),
-      ),
+        );
+      }
     );
   }
 }
-

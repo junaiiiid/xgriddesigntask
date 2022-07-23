@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xgriddesigntask/screens/home_screen.dart';
+import 'package:xgriddesigntask/services/theme_engine.dart';
 
 import '../view_models/home_view_model.dart';
 
@@ -16,6 +17,7 @@ class StateService {
 
   static List<ChangeNotifierProvider> get providers => [
     ChangeNotifierProvider<HomeViewModel>(create: (_) => HomeViewModel()),
+    ChangeNotifierProvider<ThemeEngine>(create: (_) => ThemeEngine()),
   ];
 
   static Map<String, Widget Function(BuildContext)> get routes => {

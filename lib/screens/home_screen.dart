@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:xgriddesigntask/constants/my_colors.dart';
 import 'package:xgriddesigntask/constants/my_text_styles.dart';
 import 'package:xgriddesigntask/constants/stings.dart';
+import 'package:xgriddesigntask/services/theme_engine.dart';
 import 'package:xgriddesigntask/widgets/my_app_bars.dart';
 import 'package:xgriddesigntask/widgets/my_buttons.dart';
 
@@ -15,8 +17,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeEngine = Provider.of<ThemeEngine>(context);
     return Scaffold(
-      appBar: MyAppBars.genericAppBar(),
+      backgroundColor: themeEngine.scaffoldBGColor,
+      appBar: MyAppBars.genericAppBar(backgroundColor: themeEngine.scaffoldBGColor,),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: SizedBox(
@@ -32,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   buttonText: MyStrings.upgradeToPro, onTap: () {}),
               ///MID SECTION
               const HomeTiles(),
-              MyButtons.logoutButton(buttonText: MyStrings.logout, onTap: (){}),
+              MyButtons.logoutButton(buttonText: MyStrings.logout, onTap: (){},buttonColor: themeEngine.buttonColor),
             ],
           ),
         ),
