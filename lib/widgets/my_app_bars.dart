@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xgriddesigntask/services/state_service.dart';
 import '../constants/my_colors.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../services/theme_engine.dart';
 
 class MyAppBars {

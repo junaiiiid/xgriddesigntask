@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:xgriddesigntask/constants/my_colors.dart';
-import 'package:xgriddesigntask/constants/my_text_styles.dart';
 import 'package:xgriddesigntask/constants/stings.dart';
 import 'package:xgriddesigntask/services/theme_engine.dart';
 import 'package:xgriddesigntask/widgets/my_app_bars.dart';

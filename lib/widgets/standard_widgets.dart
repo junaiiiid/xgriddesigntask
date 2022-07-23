@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:xgriddesigntask/view_models/home_view_model.dart';
-
 import '../constants/my_colors.dart';
 import '../constants/my_text_styles.dart';
-import '../services/state_service.dart';
 import '../services/theme_engine.dart';
 
 class ProfileDetailsBox extends StatelessWidget {
